@@ -25,7 +25,11 @@
     
    
     <br>
-    <div @click="deleteItem" class="buttonSimple">DELETE</div>
+    <div @click="toggleConfirm" class="buttonSimple">DELETE</div>
+    <div v-if="confirming"> 
+      <p class="buttonSimple" @click="deleteItem">YES, delete</p>
+      <p class="buttonSimple" @click="toggleConfirm">NO, do not delete</p>
+    </div>
     <div v-if="editIsOn">
       <div @click="toggleEdit(false)" class='stringDiv editButton'>FINISH EDIT</div>
     </div>
@@ -37,10 +41,14 @@
 export default {
   data() {
     return {
-      editIsOn: false
+      editIsOn: false,
+      confirming: false
     };
   },
   methods: {
+    toggleConfirm() {
+      this.confirming = !this.confirming;
+    },
     toggleEdit(onoff) {
       this.editIsOn = onoff
     },
@@ -66,6 +74,7 @@ export default {
   border: 6px solid black;
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
 
   background-color: powderblue;
 }
